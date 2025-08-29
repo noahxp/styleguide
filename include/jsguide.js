@@ -41,6 +41,13 @@ window.initStyleGuide = function(init) {
   // properly. Fix it by moving the code directly into the pre.
   find('pre > code', function(code) {
     var pre = code.parentElement;
+    // Internal HTML/CSS & TS style guides do not use prettyprint.
+    if (code.classList.contains('language-css') ||
+        code.classList.contains('language-django') ||
+        code.classList.contains('language-html') ||
+        code.classList.contains('language-ts')) {
+      code.classList.add('prettyprint');
+    }
     pre.className = code.className;
     pre.innerHTML = code.innerHTML;
   });
@@ -50,7 +57,7 @@ window.initStyleGuide = function(init) {
 
   // Call the pretty-printer after we've fixed up the code blocks.
   var pretty = document.createElement('script');
-  pretty.src = 'https://cdn.rawgit.com/google/code-prettify/master/loader/' +
-      'run_prettify.js';
+  pretty.src = 'https://cdn.jsdelivr.net/gh/google/code-prettify@master/' +
+      'loader/run_prettify.js';
   document.body.appendChild(pretty);
 }.bind(null, window.initStyleGuide);
